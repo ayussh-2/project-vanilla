@@ -66,7 +66,7 @@ export default function EventCard({
     setOpenModal(true)
   }
 
-  function handleClick(id) {
+  function handleClick(id, registeredGrades) {
     if (!mongoId) {
       toast.info('Please complete your profile to register for the event')
       return
@@ -76,7 +76,11 @@ export default function EventCard({
       return
     }
 
-    handleRegisterEvent(id)
+    handleRegisterEvent(id, registeredGrades)
+  }
+
+  function openEventRegistration(registeredGrades) {
+    handleClick(id, registeredGrades)
   }
 
   const overlay = document.getElementById('overlay')
@@ -89,6 +93,7 @@ export default function EventCard({
             closeModal={() => setOpenModal(false)}
             isTeamEvent={isTeamEvent}
             eventId={id}
+            openEventRegistration={openEventRegistration}
             registerdEvent={registeredEvent}
             eventName={name}
           />
@@ -131,7 +136,7 @@ export default function EventCard({
             <CardFooter>
               <ButtonRules onClick={redirectToRules}>Rulebook</ButtonRules>
               {!registeredEvent ? (
-                <Button onClick={() => handleClick(id)}>Register</Button>
+                <Button onClick={() => handleClick(id, null)}>Register</Button>
               ) : (
                 <Button onClick={handleRegisteredEvents}>Registered</Button>
               )}

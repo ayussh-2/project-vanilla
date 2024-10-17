@@ -5,9 +5,12 @@ export const GET_TEAM_REGISTRATIONS_BY_USER = gql`
     teamRegistrations(orgID: $orgId, userID: $userId) {
       eventID
       teamName
+      userIDs
+      grade
       users {
         name
         college
+        id
       }
     }
   }
